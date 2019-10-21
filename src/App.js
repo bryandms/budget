@@ -11,6 +11,7 @@ const App = () => {
   const [createExpense, setCreateExpense] = useState(false)
   const [expense, setExpense] = useState({})
   const [expenses, setExpenses] = useState([])
+  const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
     if (createExpense) {
@@ -26,12 +27,23 @@ const App = () => {
 
   return (
     <div className="ui container p-t">
+      <label
+        className="ui left corner blue label"
+        onClick={e => setDarkMode(!darkMode)}
+      >
+        {darkMode ? <i className="sun icon" /> : <i className="moon icon" />}
+      </label>
+
       <h2 className="ui center aligned header">
         Weekly expense
         <div className="sub header">Manage your budget.</div>
       </h2>
 
-      <div className="ui raised segment">
+      <div
+        className={
+          darkMode ? 'ui raised segment inverted' : 'ui raised segment'
+        }
+      >
         {showBudgetEntry ? (
           <BudgetEntry
             setBudget={setBudget}
@@ -44,11 +56,12 @@ const App = () => {
               <Form
                 setExpense={setExpense}
                 setCreateExpense={setCreateExpense}
+                darkMode={darkMode}
               />
             </div>
 
             <div className="eight wide column">
-              <ExpensesList expenses={expenses} />
+              <ExpensesList expenses={expenses} darkMode={darkMode} />
 
               <BudgetControl
                 budget={budget}

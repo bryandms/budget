@@ -3,7 +3,7 @@ import Error from './Error'
 import shorid from 'shortid'
 
 const Form = props => {
-  const { setExpense, setCreateExpense } = props
+  const { setExpense, setCreateExpense, darkMode } = props
 
   const [name, setName] = useState('')
   const [amount, setAmount] = useState(0)
@@ -32,11 +32,16 @@ const Form = props => {
 
   return (
     <>
-      <h3 className="ui header">Add your expenses</h3>
+      <h3 className={darkMode ? 'ui inverted header' : 'ui header'}>
+        Add your expenses
+      </h3>
 
       {error && <Error message="All fields are required." />}
 
-      <form className="ui form" onSubmit={handleSubmit}>
+      <form
+        className={darkMode ? 'ui inverted form' : 'ui form'}
+        onSubmit={handleSubmit}
+      >
         <div className="field">
           <label>Name</label>
           <input
